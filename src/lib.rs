@@ -10,6 +10,28 @@ pub mod counter {
         pub fn prev(counter: Signed) -> Signed {
             counter - 1
         }
+
+        #[cfg(test)]
+        mod tests {
+            use super::*;
+
+            #[test]
+            fn default_works() {
+                assert_eq!(0 as Signed, default());
+            }
+
+            #[test]
+            fn next_works() {
+                assert_eq!(1 as Signed, next(0));
+                assert_eq!(0 as Signed, next(-1));
+            }
+
+            #[test]
+            fn prev_works() {
+                assert_eq!(0 as Signed, prev(1));
+                assert_eq!(-1 as Signed, prev(0));
+            }
+        }
     }
 
     pub mod unsigned {
@@ -19,6 +41,22 @@ pub mod counter {
         }
         pub fn next(counter: Unsigned) -> Unsigned {
             counter + 1
+        }
+
+        #[cfg(test)]
+        mod tests {
+            use super::*;
+
+            #[test]
+            fn default_works() {
+                assert_eq!(0 as Unsigned, default());
+            }
+
+            #[test]
+            fn next_works() {
+                assert_eq!(1 as Unsigned, next(0));
+                assert_eq!(2 as Unsigned, next(1));
+            }
         }
     }
 }
@@ -36,6 +74,26 @@ pub mod pair {
 
     pub fn scalar_sum(a: Pair, b: Pair) -> i32 {
         a.0 + a.1 + b.0 + b.1
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn default_works() {
+            assert_eq!((0, 0) as Pair, default());
+        }
+
+        #[test]
+        fn vector_sum_works() {
+            assert_eq!((11, 50) as Pair, vector_sum((10, 39), (1, 11)));
+        }
+
+        #[test]
+        fn scalar_sum_works() {
+            assert_eq!(10, scalar_sum((1, 2), (3, 4)));
+        }
     }
 }
 
@@ -62,5 +120,25 @@ pub mod vec {
             c += a[i] + b[i];
         }
         c
+    }
+
+    #[cfg(test)]
+    mod tests {
+        use super::*;
+
+        #[test]
+        fn default_works() {
+            assert_eq!([0, 0, 0] as Vec3, default());
+        }
+
+        #[test]
+        fn vector_sum_works() {
+            assert_eq!([2, 6, 10] as Vec3, vector_sum([1, 4, 8], [1, 2, 2]));
+        }
+
+        #[test]
+        fn scalar_sum_works() {
+            assert_eq!(42, scalar_sum([1, 5, 11], [6, 9, 10]))
+        }
     }
 }
