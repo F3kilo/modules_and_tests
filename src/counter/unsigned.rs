@@ -1,9 +1,14 @@
-pub type Unsigned = usize;
-pub fn default() -> Unsigned {
-    0
-}
-pub fn next(counter: Unsigned) -> Unsigned {
-    counter + 1
+#[derive(PartialEq, Debug, Default)]
+pub struct Unsigned(usize);
+
+impl Unsigned {
+    pub fn new() -> Unsigned {
+        Unsigned(0)
+    }
+
+    pub fn next(self) -> Unsigned {
+        Unsigned(self.0 + 1)
+    }
 }
 
 #[cfg(test)]
@@ -11,13 +16,13 @@ mod tests {
     use super::*;
 
     #[test]
-    fn default_works() {
-        assert_eq!(0 as Unsigned, default());
+    fn new_works() {
+        assert_eq!(Unsigned(0), Unsigned::new());
     }
 
     #[test]
     fn next_works() {
-        assert_eq!(1 as Unsigned, next(0));
-        assert_eq!(2 as Unsigned, next(1));
+        assert_eq!(Unsigned(1), Unsigned::new().next());
+        assert_eq!(Unsigned(2), Unsigned(1).next());
     }
 }
