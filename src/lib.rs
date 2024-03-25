@@ -1,1 +1,3 @@
-mod calcs_counters_common;
+mod counters;
+mod pair_calc;
+mod vec3_calc;
